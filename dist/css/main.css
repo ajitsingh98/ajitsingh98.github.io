@@ -235,9 +235,9 @@ footer {
     font-size: 2.25em;
     margin-bottom: 15px; }
   #lead-content img {
-    margin-bottom: 30px;
-    width: 150px;
-    border-radius: 50%; }
+    margin-bottom: 10px;
+    width: 200px;
+    border-radius: 60%; }
 
 #lead-overlay {
   position: absolute;
