@@ -9,4 +9,4 @@ excerpt: 'This contains questions from SQL joins, rank, window functions etc'
 # citation: 'Your Name, You. (2009). &quot;Paper Title Number 1.&quot; <i>Journal 1</i>. 1(1).'
 ---
 
-{% include /ajitsingh98.github.io/Data-Science-Interview-Questions-Answers/sql.md %}
+{% include /Data-Science-Interview-Questions-Answers/sql.md %}
