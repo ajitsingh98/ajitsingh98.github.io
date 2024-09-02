@@ -1,0 +1,159 @@
+
+/* General styles for markdown content */
+.markdown-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headers */
+.markdown-content h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    color: #007acc;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.3em;
+}
+
+.markdown-content h2 {
+    font-size: 1.5em;
+    color: #005b96;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.markdown-content h3 {
+    font-size: 1.2em;
+    color: #003f5c;
+    margin-top: 1em;
+}
+
+/* Lists */
+.markdown-content ul {
+    padding-left: 20px;
+    margin: 10px 0;
+    list-style-type: disc;
+}
+
+/* Links */
+.markdown-content a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+.markdown-content a:hover {
+    text-decoration: underline;
+}
+
+/* Code Blocks */
+.markdown-content pre {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.markdown-content code {
+    background-color: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Details/Collapsible sections */
+.markdown-content details {
+    margin-bottom: 1em;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+.markdown-content details summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.markdown-content details summary:hover {
+    background-color: #e0e0e0;
+}
+
+.markdown-content details[open] summary::after {
+    content: "Hide Answer";
+    font-weight: normal;
+    color: #888;
+    margin-left: auto;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.markdown-content details summary::after {
+    content: "Show Answer";
+    font-weight: normal;
+    color: #888;
+    margin-left: auto;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.markdown-content details[open] summary::before {
+    content: "▼ ";
+    margin-right: 5px;
+}
+
+.markdown-content details summary::before {
+    content: "► ";
+    margin-right: 5px;
+}
+
+/* Custom styling for tables */
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+}
+
+.markdown-content th, .markdown-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.markdown-content th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.loading-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Style for the loading logo */
+.loading-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+/* Hide markdown content initially */
+.markdown-content {
+    display: none;
+}
