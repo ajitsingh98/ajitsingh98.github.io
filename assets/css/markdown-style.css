@@ -1,4 +1,3 @@
-
 /* General styles for markdown content */
 .markdown-content {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,27 +8,40 @@
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.markdown-content:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Headers */
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 600;
+}
+
 .markdown-content h1 {
-    font-size: 2em;
+    font-size: 2.5em;
     margin-bottom: 0.5em;
     color: #007acc;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 3px solid #e0e0e0;
     padding-bottom: 0.3em;
 }
 
 .markdown-content h2 {
-    font-size: 1.5em;
+    font-size: 2em;
     color: #005b96;
     margin-top: 1em;
     margin-bottom: 0.5em;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.2em;
 }
 
 .markdown-content h3 {
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: #003f5c;
     margin-top: 1em;
 }
@@ -41,30 +53,42 @@
     list-style-type: disc;
 }
 
+.markdown-content ol {
+    padding-left: 20px;
+    margin: 10px 0;
+    list-style-type: decimal;
+}
+
 /* Links */
 .markdown-content a {
     color: #1a73e8;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .markdown-content a:hover {
     text-decoration: underline;
+    color: #004d99;
 }
 
 /* Code Blocks */
 .markdown-content pre {
-    background-color: #282c34;
-    color: #ffffff;
-    padding: 10px;
+    background-color: #2e2e2e;
+    color: #f8f8f2;
+    padding: 1em;
     border-radius: 5px;
     overflow-x: auto;
     font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #444;
+    margin: 1em 0;
 }
 
 .markdown-content code {
     background-color: #f4f4f4;
-    padding: 2px 5px;
-    border-radius: 3px;
+    color: #d63384;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -74,7 +98,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
 }
 
 .markdown-content details summary {
@@ -83,11 +107,12 @@
     padding: 8px;
     display: flex;
     align-items: center;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .markdown-content details summary:hover {
     background-color: #e0e0e0;
+    color: #007acc;
 }
 
 .markdown-content details[open] summary::after {
@@ -124,11 +149,14 @@
     border-collapse: collapse;
     margin: 20px 0;
     background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .markdown-content th, .markdown-content td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 12px;
     text-align: left;
 }
 
@@ -137,6 +165,27 @@
     font-weight: bold;
 }
 
+.markdown-content tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.markdown-content tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Blockquote Styling */
+.markdown-content blockquote {
+    border-left: 4px solid #007acc;
+    background-color: #f1f1f1;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 5px;
+    color: #555;
+    font-style: italic;
+    border-left-width: 5px;
+}
+
+/* Loading message styles */
 .loading-message {
     display: flex;
     flex-direction: column;
@@ -153,7 +202,45 @@
     margin-bottom: 20px;
 }
 
-/* Hide markdown content initially */
-.markdown-content {
-    display: none;
+/* Back button styles */
+.back-button {
+    display: inline-block;
+    position: fixed;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 122, 204, 0.3);
 }
+
+.back-button:hover {
+    background-color: #005b96;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 91, 150, 0.3);
+}
+
+.back-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 91, 150, 0.3);
+}
+
+.repo-stats {
+    font-size: 1rem;
+    color: #816363;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #050505;
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+

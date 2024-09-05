@@ -5,5 +5,5 @@ collection: interview_preparation
 permalink: /interview-preparation/sql/
 markdown_url: "https://raw.githubusercontent.com/ajitsingh98/Data-Science-Interview-Questions-Answers/main/sql.md"
 img_url: "https://raw.githubusercontent.com/ajitsingh98/Data-Science-Interview-Questions-Answers/main/img/"
-excerpt: 'This contains questions from SQL joins, rank, window functions etc'
+excerpt: 'This section covers key SQL topics like data retrieval, string manipulation, joins, subqueries, sorting, filtering, and aggregation using functions like COUNT and GROUP BY. It also explores advanced operations like ranking, conditional logic, and handling duplicates, essential for data analysis.'
 ---
