@@ -259,3 +259,7 @@
     max-width: 100%;
     height: auto;
 }
+
+.mathjax-display {
+    text-align: center; /* Center align block math if needed */
+}
