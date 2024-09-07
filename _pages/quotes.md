@@ -1,10 +1,10 @@
 ---
-permalink: /guide/
-title: "Data Science Guide"
+permalink: /quotes/
+title: "Quotes"
 author_profile: true
 redirect_from: 
   - /md/
   - /markdown.html
 ---
 
-## Data Science Guide
+## Quotes

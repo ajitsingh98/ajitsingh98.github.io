@@ -1,22 +1,57 @@
-<!-- _layouts/interview_layout.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ '/assets/css/markdown-style.css' | relative_url }}">
+    <title>{{ page.title }}</title>
+
+    <!-- MathJax Configuration -->
     <script>
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                tags: 'ams',
+                packages: { '[+]': ['ams'] }
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                renderActions: {
+                    find_script: [10, function (doc) {
+                        for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                            const display = !!node.type.match(/; *mode=display/);
+                            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                            const text = document.createTextNode('');
+                            node.parentNode.replaceChild(text, node);
+                            math.start = { node: text, delim: '', n: 0 };
+                            math.end = { node: text, delim: '', n: 0 };
+                            doc.math.push(math);
+                        }
+                    }, '']
+                }
             },
             svg: {
                 fontCache: 'global'
             }
         };
     </script>
+    <!-- Load MathJax Script -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+    
+    <style>
+        /* Center the first h2 header */
+        h2:first-of-type {
+            text-align: center;
+        }
+
+        /* Ensure proper rendering of LaTeX matrices */
+        .mathjax-display {
+            text-align: center; /* Center align block math if needed */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -27,12 +62,13 @@
             <img src="/images/loading.gif" alt="Loading" class="loading-logo" />
             <p>Preparing Interview Corner...</p>
         </div>
-        <a href="javascript:history.back()" class="back-button">← Back</a> <!-- Back button -->
+        <a href="javascript:history.back()" class="back-button">← Back</a>
         <div id="markdown-content" class="markdown-content">
             <!-- Content will be dynamically loaded here -->
         </div>
     </main>
 
+    <!-- Load Markdown Content with MathJax Rendering -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const markdownUrl = "{{ page.markdown_url }}";
@@ -47,15 +83,20 @@
                     const markdown = await response.text();
                     let renderedContent = marked.parse(markdown);
 
-                    // Correct image paths by prepending the base URL
+                    // Adjust image URLs
                     renderedContent = replaceImageUrls(renderedContent, imageBaseUrl);
 
-                    // Set the modified HTML into the page
+                    // Set HTML into the page
                     document.getElementById('markdown-content').innerHTML = renderedContent;
 
                     // Trigger MathJax to render LaTeX
                     if (window.MathJax) {
-                        MathJax.typesetPromise();
+                        MathJax.typesetPromise().then(() => {
+                            // Re-render if necessary
+                            document.querySelectorAll('.mathjax-display').forEach(element => {
+                                MathJax.typesetPromise([element]).catch((err) => console.error('MathJax error:', err));
+                            });
+                        });
                     }
 
                     // Hide the loading message
@@ -99,6 +140,7 @@
         });
     </script>
 
+    <!-- Load Marked.js for Markdown Parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
