@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/markdown-style.css">
+    <title>Probability</title>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                tags: 'ams',
+                packages: { '[+]': ['amsmath', 'amsfonts', 'amssymb'] }, // Load additional LaTeX packages
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    
+    <!-- Load MathJax Script -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+    
+    <!-- Load Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <style>
+        /* Center the first h2 header */
+        h2:first-of-type {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- <h1>Probability</h1> -->
+    </header>
+    <main>
+        <div id="loading-message" class="loading-message">
+            <img src="/images/loading.gif" alt="Loading" class="loading-logo" />
+            <p>Preparing Interview Corner...</p>
+        </div>
+        <a href="javascript:history.back()" class="back-button">← Back</a>
+        <div id="markdown-content" class="markdown-content">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <!-- Load Markdown Content with MathJax Rendering -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const markdownUrl = "https://raw.githubusercontent.com/ajitsingh98/Data-Science-Interview-Questions-Answers/main/probability.md";
+            const imageBaseUrl = "https://raw.githubusercontent.com/ajitsingh98/Data-Science-Interview-Questions-Answers/main/img/";
+
+            async function loadMarkdown(url) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error('Failed to load markdown content');
+                    }
+                    const markdown = await response.text();
+                    const modifiedMarkdown = addHeadingIds(markdown);
+                    const renderedContent = marked.parse(modifiedMarkdown);
+
+                    // Adjust image URLs
+                    const adjustedContent = replaceImageUrls(renderedContent, imageBaseUrl);
+
+                    // Set HTML into the page
+                    document.getElementById('markdown-content').innerHTML = adjustedContent;
+
+                    // Trigger MathJax to render LaTeX
+                    if (window.MathJax) {
+                        MathJax.typesetPromise().then(() => {
+                            // Additional re-render if necessary
+                            document.querySelectorAll('.mathjax-display').forEach(element => {
+                                MathJax.typesetPromise([element]).catch((err) => console.error('MathJax error:', err));
+                            });
+                        }).catch((err) => console.error('MathJax typesetPromise error:', err));
+                    }
+
+                    // Hide the loading message
+                    document.getElementById('loading-message').style.display = 'none';
+                    document.getElementById('markdown-content').style.display = 'block';
+
+                    // Set up internal link navigation
+                    setupInternalLinks();
+                } catch (error) {
+                    console.error('Error fetching markdown:', error);
+                    document.getElementById('markdown-content').textContent = 'Error loading content. Please refresh the page again...';
+                }
+            }
+
+            function addHeadingIds(markdown) {
+                return markdown.replace(/^(#{1,6})\s+(.*)$/gm, (match, hashes, text) => {
+                    const level = hashes.length;
+                    const slug = text.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '');
+                    return `<h${level} id="${slug}">${text}</h${level}>`;
+                });
+            }
+
+            function replaceImageUrls(content, baseUrl) {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = content;
+                const images = tempDiv.querySelectorAll('img');
+                images.forEach(img => {
+                    const src = img.getAttribute('src');
+                    if (src && !src.startsWith('http')) {
+                        img.src = baseUrl + src.split('/').pop();
+                    }
+                });
+                return tempDiv.innerHTML;
+            }
+
+            function setupInternalLinks() {
+                document.querySelectorAll('#markdown-content a').forEach(anchor => {
+                    anchor.addEventListener('click', function (event) {
+                        const href = this.getAttribute('href');
+                        if (href.startsWith('#')) {
+                            event.preventDefault();
+                            const targetElement = document.getElementById(href.substring(1));
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }
+                    });
+                });
+            }
+
+            loadMarkdown(markdownUrl);
+        });
+    </script>
+</body>
+</html>
